@@ -19,11 +19,11 @@ class Game
   end
 
   def crash_message
-    raise "\e[31mImSorry, your ships have crashed, you lose.\e[0m"
+    raise "\e[31mSorry, your ships have crashed, you lose.\e[0m"
   end
 
   def rock_message
-    raise "\e[31mImSorry, your ship hit the rocks and sunk, don't go too far.\e[0m"
+    raise "\e[31mSorry, your ship hit the rocks and sunk, don't go too far.\e[0m"
   end
 
   def set_fleet(player, ship_size, ship_name, board)
@@ -36,26 +36,26 @@ class Game
     case ao
     when 'N'
       for i in 0..ship_size - 1
-        crash_message if board.check_element?(ax + i, ay)
         rock_message if (ax + 1) < 0 || (ax + 1) > board.size || ay < 0 || ay > board.size
+        crash_message if board.check_element?(ax + i, ay)
         board.register_ship(ax + i, ay)
       end
     when 'E'
       for i in 0..ship_size - 1
-        crash_message if board.check_element?(ax, ay - i)
         rock_message if ax < 0 || ax > board.size || (ay - i) < 0 || (ay - i) > board.size
+        crash_message if board.check_element?(ax, ay - i)
         board.register_ship(ax, ay - i)
       end
     when 'S'
       for i in 0..ship_size - 1
-        crash_message if board.check_element?(ax - i, ay)
         rock_message if (ax - i) < 0 || (ax - i) > board.size || ay < 0 || ay > board.size
+        crash_message if board.check_element?(ax - i, ay)
         board.register_ship(ax - i, ay)
       end
     when 'W'
       for i in 0..ship_size - 1
-        crash_message if board.check_element?(ax, ay + i)
         rock_message if ax < 0 || ax > board.size || (ay + i) < 0 || (ay + i) > board.size
+        crash_message if board.check_element?(ax, ay + i)
         board.register_ship(ax, ay + i)
       end
     else
