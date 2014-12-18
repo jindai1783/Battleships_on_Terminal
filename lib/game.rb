@@ -19,11 +19,11 @@ class Game
   end
 
   def crash_message
-    raise "Sorry, your ships have crashed, you lose."
+    raise "\e[31mImSorry, your ships have crashed, you lose.\e[0m"
   end
 
   def rock_message
-    raise "Sorry, your ship hit the rocks and sunk, don't go too far."
+    raise "\e[31mImSorry, your ship hit the rocks and sunk, don't go too far.\e[0m"
   end
 
   def set_fleet(player, ship_size, ship_name, board)
@@ -69,7 +69,7 @@ class Game
     fleet1 = Fleet.new
     fleet1.fleet.each do |ship_name, ship_size|
       set_fleet(@player1, ship_size, ship_name, @board1)
-      print "-----#{@player1}'s territory-----"
+      print "\e[34m-----#{@player1}'s territory-----\e[0m"
       @board1.print_ship
     end
 
@@ -78,7 +78,7 @@ class Game
     fleet1 = Fleet.new
     fleet1.fleet.each do |ship_name, ship_size|
       set_fleet(@player2, ship_size, ship_name, @board2)
-      print "-----#{@player2}'s territory-----"
+      print "\e[34m-----#{@player2}'s territory-----\e[0m"
       @board2.print_ship
     end
 

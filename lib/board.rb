@@ -26,7 +26,7 @@ class Board
         if y == nil
           print '- '
         elsif y == true
-          print '$ '
+          print "\e[32m$ \e[0m"
         else
           print '- '
         end
