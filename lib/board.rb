@@ -20,7 +20,7 @@ class Board
   end
 
   def print_ship
-    puts 
+    puts
     @element.each do |x|
       x.each do |y|
         if y == nil
@@ -33,6 +33,36 @@ class Board
       end
       puts
     end
+  end
+
+  def hit(x, y)
+    if @element[x][y] == true
+      @element[x][y] = false
+    else
+      @element[x][y] = 0
+    end
+  end
+
+  def print_track
+    puts
+    @element.each do |x|
+      x.each do |y|
+        if y == nil
+          print '- '
+        elsif y == false
+          print "\e[31m* \e[0m"
+        elsif y == 0
+          print "\e[33m* \e[0m"
+        else
+          print '- '
+        end
+      end
+      puts
+    end
+  end
+
+  def check_end
+    !@element.flatten.include? true
   end
 
 end

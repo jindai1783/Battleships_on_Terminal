@@ -86,7 +86,40 @@ class Game
     puts "The battle shall start now"
   end
 
+  def stage_2
+    while true do
+      puts "It's #{@player1}'s turn to hit"
+      puts "Please enter y value"
+      x = gets.chomp.to_i
+      puts "Please enter x value"
+      y = gets.chomp.to_i
+      @board2.hit(x, y)
+      @board2.print_track
+
+      if @board2.check_end
+        puts "#{@player1} Win!"
+        break
+      end
+  
+      puts "It's #{@player2}'s turn to hit"
+      puts "Please enter y value"
+      x = gets.chomp.to_i
+      puts "Please enter x value"
+      y = gets.chomp.to_i
+      @board1.hit(x, y)
+      @board1.print_track
+
+      if @board1.check_end
+        puts "#{@player2} Win!"
+        break
+      end
+
+    end
+  end
+
   def start
     stage_1
+    stage_2
+    puts 'Game Over!'
   end
 end
