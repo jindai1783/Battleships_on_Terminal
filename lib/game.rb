@@ -69,16 +69,16 @@ class Game
     fleet1 = Fleet.new
     fleet1.fleet.each do |ship_name, ship_size|
       set_fleet(@player1, ship_size, ship_name, @board1)
-      print "\e[34m-----#{@player1}'s territory-----\e[0m"
+      puts "\e[34m-----#{@player1}'s territory-----\e[0m"
       @board1.print_ship
     end
 
     puts "It's #{@player2}'s turn to set fleet."
 
-    fleet1 = Fleet.new
-    fleet1.fleet.each do |ship_name, ship_size|
+    fleet2 = Fleet.new
+    fleet2.fleet.each do |ship_name, ship_size|
       set_fleet(@player2, ship_size, ship_name, @board2)
-      print "\e[34m-----#{@player2}'s territory-----\e[0m"
+      puts "\e[34m-----#{@player2}'s territory-----\e[0m"
       @board2.print_ship
     end
 
@@ -87,7 +87,7 @@ class Game
   end
 
   def stage_2
-    while true do
+    while true
       puts "It's #{@player1}'s turn to hit"
       puts "Please enter y value"
       x = gets.chomp.to_i
