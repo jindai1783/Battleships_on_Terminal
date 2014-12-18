@@ -13,49 +13,80 @@ class Game
 
   def set_board
     puts 'Please enter the size of the board'
-    @board = Board.new(gets.chomp.to_i)
+    size = gets.chomp.to_i
+    @board1 = Board.new(size)
+    @board2 = Board.new(size)
   end
 
-  def set_fleet(player, ship_size, ship_name)
-    puts "#{player}, please set your #{ship_name} head x value"
-    ax = gets.chomp.to_i
+  def crash_message
+    raise "Sorry, your ships have crashed, you lose."
+  end
+
+  def rock_message
+    raise "Sorry, your ship hit the rocks and sunk, don't go too far."
+  end
+
+  def set_fleet(player, ship_size, ship_name, board)
     puts "#{player}, please set your #{ship_name} head y value"
+    ax = gets.chomp.to_i
+    puts "#{player}, please set your #{ship_name} head x value"
     ay = gets.chomp.to_i
     puts "#{player}, please set your #{ship_name} orientation (N, E, S or W)"
     ao = gets.chomp
     case ao
     when 'N'
       for i in 0..ship_size - 1
-        @board.register_ship(ax + i, ay)
+        crash_message if board.check_element?(ax + i, ay)
+        rock_message if (ax + 1) < 0 || (ax + 1) > board.size || ay < 0 || ay > board.size
+        board.register_ship(ax + i, ay)
       end
     when 'E'
       for i in 0..ship_size - 1
-        @board.register_ship(ax, ay - i)
+        crash_message if board.check_element?(ax, ay - i)
+        rock_message if ax < 0 || ax > board.size || (ay - i) < 0 || (ay - i) > board.size
+        board.register_ship(ax, ay - i)
       end
     when 'S'
       for i in 0..ship_size - 1
-        @board.register_ship(ax - i, ay)
+        crash_message if board.check_element?(ax - i, ay)
+        rock_message if (ax - i) < 0 || (ax - i) > board.size || ay < 0 || ay > board.size
+        board.register_ship(ax - i, ay)
       end
     when 'W'
       for i in 0..ship_size - 1
-        @board.register_ship(ax, ay + 1)
+        crash_message if board.check_element?(ax, ay + i)
+        rock_message if ax < 0 || ax > board.size || (ay + i) < 0 || (ay + i) > board.size
+        board.register_ship(ax, ay + i)
       end
+    else
     end
   end
 
-  def start
+  def stage_1
+    puts '~~~~~GAME START!!!~~~~~'
     get_name
     set_board
-    # set_fleet(@player1, 5)
-    # @board.print_ship
-    # set_fleet(@player1, 4)
-    # @board.print_ship
+    fleet1 = Fleet.new
+    fleet1.fleet.each do |ship_name, ship_size|
+      set_fleet(@player1, ship_size, ship_name, @board1)
+      print "-----#{@player1}'s territory-----"
+      @board1.print_ship
+    end
+
+    puts "It's #{@player2}'s turn to set fleet."
 
     fleet1 = Fleet.new
     fleet1.fleet.each do |ship_name, ship_size|
-      set_fleet(@player1, ship_size, ship_name)
-      @board.print_ship
+      set_fleet(@player2, ship_size, ship_name, @board2)
+      print "-----#{@player2}'s territory-----"
+      @board2.print_ship
     end
 
+    puts "Both of you have finished your settings."
+    puts "The battle shall start now"
+  end
+
+  def start
+    stage_1
   end
 end

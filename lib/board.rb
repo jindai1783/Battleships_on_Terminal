@@ -1,6 +1,6 @@
 class Board
 
-  attr_reader :element
+  attr_reader :element, :size
 
   def initialize(size)
     @size = size
@@ -9,6 +9,14 @@ class Board
 
   def register_ship(x, y)
     @element[x][y] = true
+  end
+
+  def check_element?(x, y)
+    if @element[x][y] == true
+      return true
+    else
+      return false
+    end
   end
 
   def print_ship
