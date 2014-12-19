@@ -1,1 +1,3 @@
-To play the game, ruby run.rb
+#Battleships#
+
+This repository is obsolete
