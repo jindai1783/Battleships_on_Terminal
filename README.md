@@ -1,3 +1,3 @@
 #Battleships#
 
-This repository is obsolete
+This repository is obsolete.
